@@ -6,11 +6,10 @@ class Container {
   }
   async save(object) {
     const productos = await this.getAll();
-    const index = productos.map((element) => element.id).indexOf(object.id); // Obtenemos el indice del producto a reemplazar
+    const index = productos.map((element) => element.id).indexOf(object.id);
     if (index >= 0) {
-      // Si el indexOf encuentra al producto :
       const oldProduct = productos[index];
-      object.id = productos[index].id; // Asignamos al nuevo producto el mismo ID que el anterior (ya que reemplazamos)
+      object.id = productos[index].id;
       productos[index] = object;
       try {
         await fs.writeFile(this.route, JSON.stringify(productos, null, 2));
@@ -22,7 +21,6 @@ class Container {
         return [];
       }
     } else {
-      // Si el indexOf no encontro al producto :
       console.log("Not found");
       return [];
     }
@@ -104,8 +102,8 @@ class Container {
   newId(product, arr) {
     arr.sort((a, b) => {
       return a - b;
-    }); // Ordenamos de forma ascendente segun el id
-    product.id = parseInt(arr[arr.length - 1].id) + 1; // Tomamos el id mas grande le sumamos 1 y lo asignamos al producto
+    });
+    product.id = parseInt(arr[arr.length - 1].id) + 1;
     console.log(`Nuevo id del producto : ${product.id}`);
     return product.id;
   }
